@@ -9,8 +9,10 @@
 			display: block;
 			margin: 60px auto;
 			box-shadow: -2px -2px 2px #efefef, 5px 5px 5px #b9b9b9;
+		}
 
-
+		audio{
+			margin: 30px auto;
 		}
 
 		.btn-wrap {
@@ -52,6 +54,7 @@
 <body>
 	<h1 id="class-warp">机器学习及其应用</h4>
 	<h3 id="result-wrap">-----AI五子棋-----</h3>
+	
 	<canvas id="chess" width="450px" height="450px"></canvas>
 	<div class="btn-wrap">
 		<div id='restart' class="restart">
@@ -79,6 +82,8 @@
 			returnAble = false;
 		var resultTxt = document.getElementById('result-wrap');
 		var chressBord = []; //棋盘
+
+
 		for (var i = 0; i < 15; i++) {
 			chressBord[i] = [];
 			for (var j = 0; j < 15; j++) {
@@ -134,7 +139,7 @@
 				count++;
 			}
 		}
-		// debugger;
+		// 调试
 		for (var i = 0; i < count; i++) {
 			myWin[i] = 0;
 			_myWin[i] = 0;
@@ -159,6 +164,9 @@
 		// 我，下棋
 		chess.onclick = function (e) {
 			if (over) {
+
+			 //oneStep(8, 8, false);///////////////////////////////bug
+		
 				return;
 			}
 			if (!me) {
@@ -178,12 +186,12 @@
 				for (var k = 0; k < count; k++) {
 					// 将可能赢的情况都加1
 					if (wins[i][j][k]) {
-						// debugger;
+						
 						myWin[k]++;
 						_compWin[k] = computerWin[k];
 						computerWin[k] = 6; //这个位置对方不可能赢了
 						if (myWin[k] == 5) {
-							// window.alert('你赢了');
+							
 							resultTxt.innerHTML = '恭喜，你赢了！';
 							over = true;
 						}
@@ -397,8 +405,9 @@
 			context.lineTo((i + 1) * 30, j * 30 + 15);
 			context.stroke();
 		}
+		
 	</script>
-	<audio id="audio" src="lemonTree .mp3" controls autoplay loop></audio>
+	<audio id="audio" src="lemonTree .mp3" controls autoplay loop volume=0.3></audio>
 </body>
 
 </html>
