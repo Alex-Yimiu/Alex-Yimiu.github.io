@@ -60,14 +60,27 @@
 		<div id='restart' class="restart">
 			<span>重新开始</span>
 		</div>
-		<div id='goback' class="goback unable">
+		<!-- <div id='goback' class="goback unable">
 			<span>悔棋</span>
 		</div>
 		<div id='return' class="return unable">
 			<span>撤销悔棋</span>
-		</div>
+		</div> -->
 	</div>
 	<h5 id="author">作者：杜一鸣</h2>
+		<div style="width:60%;float: center;">
+
+			<img src="杜一鸣.jpg"  style="position:relative;left:100px;width: 20%;" >
+			
+			<img src="志文.jpg" style="position:relative;left:300px;width: 20%;">
+	
+			<img src="邓佳彤.jpg"  style="position:relative;left:500px;width: 20%;" >
+			
+			<img src="叶浩劫.jpg" style="position:relative;left:700px;width: 20%;">			
+		
+		</div>
+	
+
 
 	<script type="text/javascript" charset="utf-8">
 		var over = false;
@@ -101,6 +114,7 @@
 				wins[i][j] = [];
 			}
 		}
+		console.log(wins);
 
 		var count = 0; //赢法总数
 		//横线赢法
@@ -112,6 +126,7 @@
 				count++;
 			}
 		}
+		console.log(wins);
 		//竖线赢法
 		for (var i = 0; i < 15; i++) {
 			for (var j = 0; j < 11; j++) {
@@ -121,6 +136,7 @@
 				count++;
 			}
 		}
+		console.log(wins);
 		//正斜线赢法
 		for (var i = 0; i < 11; i++) {
 			for (var j = 0; j < 11; j++) {
@@ -130,6 +146,7 @@
 				count++;
 			}
 		}
+		console.log(wins);
 		//反斜线赢法
 		for (var i = 0; i < 11; i++) {
 			for (var j = 14; j > 3; j--) {
@@ -139,6 +156,8 @@
 				count++;
 			}
 		}
+		
+		console.log(wins);
 		// 调试
 		for (var i = 0; i < count; i++) {
 			myWin[i] = 0;
@@ -173,7 +192,7 @@
 				return;
 			}
 			// 悔棋功能可用
-			backbtn.className = backbtn.className.replace(new RegExp("(\\s|^)unable(\\s|$)"), " ");
+			// backbtn.className = backbtn.className.replace(new RegExp("(\\s|^)unable(\\s|$)"), " ");
 			var x = e.offsetX;
 			var y = e.offsetY;
 			var i = Math.floor(x / 30);
@@ -204,76 +223,76 @@
 			}
 		}
 		// 悔棋
-		backbtn.onclick = function (e) {
-			if (!backAble) {
-				return;
-			}
-			over = false;
-			me = true;
-			// resultTxt.innerHTML = 'emmmm，悔棋中';
-			// 撤销悔棋功能可用
-			returnbtn.className = returnbtn.className.replace(new RegExp("(\\s|^)unable(\\s|$)"), " ");
-			// 我，悔棋
-			chressBord[_nowi][_nowj] = 0; //我，已占位置 还原
-			minusStep(_nowi, _nowj); //销毁棋子
-			for (var k = 0; k < count; k++) {
-				// 将可能赢的情况都减1
-				if (wins[_nowi][_nowj][k]) {
-					myWin[k]--;
-					computerWin[k] = _compWin[k]; //这个位置对方可能赢
-				}
-			}// 计算机相应的悔棋
-			chressBord[_compi][_compj] = 0; //计算机，已占位置 还原
-			minusStep(_compi, _compj); //销毁棋子
-			for (var k = 0; k < count; k++) {
-				// 将可能赢的情况都减1
-				if (wins[_compi][_compj][k]) {
-					computerWin[k]--;
-					myWin[k] = _myWin[i]; //这个位置对方可能赢
-				}
-			}
-			resultTxt.innerHTML = '--AI五子棋--';
-			returnAble = true;
-			backAble = false;
-		}
+		// backbtn.onclick = function (e) {
+		// 	if (!backAble) {
+		// 		return;
+		// 	}
+		// 	over = false;
+		// 	me = true;
+		// 	// resultTxt.innerHTML = 'emmmm，悔棋中';
+		// 	// 撤销悔棋功能可用
+		// 	returnbtn.className = returnbtn.className.replace(new RegExp("(\\s|^)unable(\\s|$)"), " ");
+		// 	// 我，悔棋
+		// 	chressBord[_nowi][_nowj] = 0; //我，已占位置 还原
+		// 	minusStep(_nowi, _nowj); //销毁棋子
+		// 	for (var k = 0; k < count; k++) {
+		// 		// 将可能赢的情况都减1
+		// 		if (wins[_nowi][_nowj][k]) {
+		// 			myWin[k]--;
+		// 			computerWin[k] = _compWin[k]; //这个位置对方可能赢
+		// 		}
+		// 	}// 计算机相应的悔棋
+		// 	chressBord[_compi][_compj] = 0; //计算机，已占位置 还原
+		// 	minusStep(_compi, _compj); //销毁棋子
+		// 	for (var k = 0; k < count; k++) {
+		// 		// 将可能赢的情况都减1
+		// 		if (wins[_compi][_compj][k]) {
+		// 			computerWin[k]--;
+		// 			myWin[k] = _myWin[i]; //这个位置对方可能赢
+		// 		}
+		// 	}
+		// 	resultTxt.innerHTML = '--AI五子棋--';
+		// 	returnAble = true;
+		// 	backAble = false;
+		// }
 
-		// 撤销悔棋
-		returnbtn.onclick = function (e) {
-			if (!returnAble) {
-				return;
-			}
-			// 我，撤销悔棋
-			chressBord[_nowi][_nowj] = 1; //我，已占位置
-			oneStep(_nowi, _nowj, me);
-			for (var k = 0; k < count; k++) {
-				if (wins[_nowi][_nowj][k]) {
-					myWin[k]++;
-					_compWin[k] = computerWin[k];
-					computerWin[k] = 6; //这个位置对方不可能赢
-				}
-				if (myWin[k] == 5) {
-					resultTxt.innerHTML = '恭喜，你赢了！';
-					over = true;
-				}
-			}// 计算机撤销相应的悔棋
-			chressBord[_compi][_compj] = 2; //计算机，已占位置
-			oneStep(_compi, _compj, false);
-			for (var k = 0; k < count; k++) {
-				// 将可能赢的情况都减1
-				if (wins[_compi][_compj][k]) {
-					computerWin[k]++;
-					_myWin[k] = myWin[k];
-					myWin[k] = 6; //这个位置对方不可能赢
-				}
-				if (computerWin[k] == 5) {
-					resultTxt.innerHTML = '遗憾，计算机赢了，继续加油哦！';
-					over = true;
-				}
-			}
-			returnbtn.className += ' ' + 'unable';
-			returnAble = false;
-			backAble = true;
-		}
+		
+		// returnbtn.onclick = function (e) {
+		// 	if (!returnAble) {
+		// 		return;
+		// 	}
+		// 	// 我，撤销悔棋
+		// 	chressBord[_nowi][_nowj] = 1; //我，已占位置
+		// 	oneStep(_nowi, _nowj, me);
+		// 	for (var k = 0; k < count; k++) {
+		// 		if (wins[_nowi][_nowj][k]) {
+		// 			myWin[k]++;
+		// 			_compWin[k] = computerWin[k];
+		// 			computerWin[k] = 6; //这个位置对方不可能赢
+		// 		}
+		// 		if (myWin[k] == 5) {
+		// 			resultTxt.innerHTML = '恭喜，你赢了！';
+		// 			over = true;
+		// 		}
+		// 	}// 计算机撤销相应的悔棋
+		// 	chressBord[_compi][_compj] = 2; //计算机，已占位置
+		// 	oneStep(_compi, _compj, false);
+		// 	for (var k = 0; k < count; k++) {
+		// 		// 将可能赢的情况都减1
+		// 		if (wins[_compi][_compj][k]) {
+		// 			computerWin[k]++;
+		// 			_myWin[k] = myWin[k];
+		// 			myWin[k] = 6; //这个位置对方不可能赢
+		// 		}
+		// 		if (computerWin[k] == 5) {
+		// 			resultTxt.innerHTML = '遗憾，计算机赢了，继续加油哦！';
+		// 			over = true;
+		// 		}
+		// 	}
+		// 	returnbtn.className += ' ' + 'unable';
+		// 	returnAble = false;
+		// 	backAble = true;
+		// }
 
 		// 计算机下棋
 		var computerAI = function () {
@@ -351,7 +370,11 @@
 						over = true;
 					}
 				}
+				
 			}
+			// console.log(chressBord);///////////////////////////////////////////////////////////////////////////////////////////////////
+			// console.log(myScore);
+			// console.log(computerScore);
 			if (!over) {
 				me = !me;
 			}
@@ -394,19 +417,21 @@
 		}
 
 		//销毁棋子
-		var minusStep = function (i, j) {
-			//擦除该圆
-			context.clearRect((i) * 30, (j) * 30, 30, 30);
-			// 重画该圆周围的格子
-			context.beginPath();
-			context.moveTo(15 + i * 30, j * 30);
-			context.lineTo(15 + i * 30, j * 30 + 30);
-			context.moveTo(i * 30, j * 30 + 15);
-			context.lineTo((i + 1) * 30, j * 30 + 15);
-			context.stroke();
-		}
+		// var minusStep = function (i, j) {
+		// 	//擦除该圆
+		// 	context.clearRect((i) * 30, (j) * 30, 30, 30);
+		// 	// 重画该圆周围的格子
+		// 	context.beginPath();
+		// 	context.moveTo(15 + i * 30, j * 30);
+		// 	context.lineTo(15 + i * 30, j * 30 + 30);
+		// 	context.moveTo(i * 30, j * 30 + 15);
+		// 	context.lineTo((i + 1) * 30, j * 30 + 15);
+		// 	context.stroke();
+		// }
+		
 		
 	</script>
+	<!-- <audio id="audio" src="Music/lemonTree .mp3" controls autoplay loop volume=0.3></audio> -->
 </body>
 
 </html>
